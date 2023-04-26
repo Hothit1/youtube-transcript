@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Transcript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            margin-top: 50px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+        }
+
+        #url {
+            width: 80%;
+            padding: 10px;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        input[type=submit] {
+            font-size: 1.1em;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        #transcript {
+            width: 80%;
+            margin: 30px auto;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1em;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        #copy-btn {
+            background-color: #008CBA;
+            color: white;
+            padding: 8px 16px;
+            font-size: 1.1em;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #copy-btn:hover {
+            background-color: #0079a9;
+        }
+    </style>
+    <script>
+        function copyTranscript() {
+            let textarea = document.createElement("textarea");
+            textarea.textContent = document.getElementById("transcript").textContent;
+            textarea.style.position = "absolute";
+            textarea.style.left = "-9999px";
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("Transcript copied to clipboard!");
+        }
+    </script>
+</head>
+<body>
+    <h1>YouTube Transcript</h1>
+    <form action="/" method="post">
+        <label for="url">YouTube video URL:</label>
+        <br>
+        <input type="text" name="url" id="url" required>
+        <br>
+        <input type="submit" value="Get Transcript">
+    </form>
+    {% if transcript %}
+    <div id="transcript">
+        {{ transcript }}
+    </div>
+    <button id="copy-btn" onclick="copyTranscript()">Click to Copy</button>
+    {% endif %}
+</body>
+</html>

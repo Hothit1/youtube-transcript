@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Transcript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            margin-top: 50px;
+        }
+
+        #transcript {
+            width: 80%;
+            margin: 30px auto;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            overflow-wrap: break-word;
+            column-count: 2;
+            column-gap: 20px;
+        }
+
+        @media screen and (min-width: 992px) {
+            #transcript {
+                column-count: 3;
+            }
+        }
+
+        #copy-btn {
+            background-color: #008CBA;
+            color: white;
+            padding: 8px 16px;
+            font-size: 1.1em;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #copy-btn:hover {
+            background-color: #0079a9;
+        }
+    </style>
+    <script>
+        function copyTranscript() {
+            let textarea = document.createElement("textarea");
+            textarea.textContent = document.getElementById("transcript").textContent;
+            textarea.style.position = "absolute";
+            textarea.style.left = "-9999px";
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("Transcript copied to clipboard!");
+        }
+    </script>
+</head>
+<body>
+    <h1>YouTube Transcript</h1>
+    <button id="copy-btn" onclick="copyTranscript()">Click to Copy</button>
+    <div id="transcript">
+        {{ transcript }}
+    </div>
+    <br>
+    <a href="/">Go back</a>
+</body>
+</html>
